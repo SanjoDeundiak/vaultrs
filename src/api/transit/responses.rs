@@ -2,6 +2,13 @@ use super::KeyType;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
+#[derive(Debug, Serialize, Deserialize)]
+pub struct KeyInfo {
+    pub creation_time: String, // "2023-10-27T12:27:16.164252628Z",
+    pub name: String,          // "ed25519",
+    pub public_key: String,    // "vpquHNwkh20tGt2erCEx2AW/wSHQnwsHAXknFdPBcgs="
+}
+
 /// Response from executing
 /// [ReadKeyRequest][crate::api::transit::requests::ReadKeyRequest]
 #[derive(Debug, Serialize, Deserialize)]
@@ -12,7 +19,7 @@ pub struct ReadKeyResponse {
     pub derived: bool,
     pub exportable: bool,
     pub allow_plaintext_backup: bool,
-    pub keys: HashMap<String, u64>,
+    pub keys: HashMap<u64, KeyInfo>,
     pub min_decryption_version: u64,
     pub min_encryption_version: u64,
     pub name: String,
@@ -20,7 +27,7 @@ pub struct ReadKeyResponse {
     pub supports_decryption: bool,
     pub supports_derivation: bool,
     pub supports_signing: bool,
-    pub imported: Option<bool>,
+    pub imported_key: Option<bool>,
 }
 
 /// Response from executing
